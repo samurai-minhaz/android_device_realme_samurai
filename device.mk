@@ -29,7 +29,7 @@ RELAX_USES_LIBRARY_CHECK := true
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay-evolution
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 PRODUCT_PACKAGES += \
@@ -321,7 +321,7 @@ PRODUCT_COPY_FILES += \
 
 # Livedisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service-sdm
+    vendor.evolution.livedisplay@2.0-service-sdm
 
 # Native libraries whitelist
 PRODUCT_COPY_FILES += \
@@ -379,7 +379,7 @@ $(call inherit-product, packages/apps/RealmeParts/parts.mk)
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.lineage-libperfmgr \
+    android.hardware.power-service.evolution-libperfmgr \
     libqti-perfd-client
 
 PRODUCT_SOONG_NAMESPACES += \
@@ -446,7 +446,7 @@ PRODUCT_PACKAGES += \
     libdumpstateutil.vendor:64 \
     libsensorndkbridge \
     sensors.oplus \
-    vendor.lineage.oplus_als.service \
+    vendor.evolution.oplus_als.service \
     vendor.oplus.hardware.syshelper.service
 
 PRODUCT_COPY_FILES += \
@@ -479,7 +479,7 @@ PRODUCT_PACKAGES += \
 
 # Touch
 PRODUCT_PACKAGES += \
-    vendor.lineage.touch@1.0-service.samurai
+    vendor.evolution.touch@1.0-service.samurai
 
 # USB
 PRODUCT_PACKAGES += \
