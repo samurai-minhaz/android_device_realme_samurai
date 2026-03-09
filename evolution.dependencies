@@ -1,11 +1,11 @@
 [
   {
-    "repository": "android_vendor_realme_samurai",
+    "repository": "proprietary_vendor_realme_samurai",
     "target_path": "vendor/realme/samurai",
     "branch": "evo-14"
   },
   {
-    "repository": "android_kernel_realme_samurai",
+    "repository": "android_kernel_realme_sm8150",
     "target_path": "kernel/realme/samurai",
     "branch": "evo-14"
   }
