@@ -5,4 +5,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_samurai.mk
+    $(LOCAL_DIR)/evolution_samurai.mk
+
+COMMON_LUNCH_CHOICES := \
+    evolution_samurai-userdebug
