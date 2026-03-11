@@ -6,7 +6,7 @@
   },
   {
     "repository": "android_kernel_realme_sm8150",
-    "target_path": "kernel/realme/samurai",
+    "target_path": "kernel/realme/sm8150",
     "branch": "evo-14"
   }
 ]
