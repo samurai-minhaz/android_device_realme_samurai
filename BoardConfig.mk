@@ -49,7 +49,9 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_USE_LZ4 := true
-TARGET_KERNEL_CONFIG := samurai_defconfig vendor/debugfs.config
+
+# কার্নেল কনফিগারেশন পাথ চেক (vendor/debugfs.config যদি না থাকে তবে শুধু defconfig রাখো)
+TARGET_KERNEL_CONFIG := samurai_defconfig
 TARGET_KERNEL_SOURCE := kernel/realme/sm8150
 
 # --- [STAGE 3] DISPLAY, GPU & VULKAN TURBO ---
@@ -105,6 +107,10 @@ BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_DEFAULT := qca_cld3
 WPA_SUPPLICANT_VERSION := VER_0_8_X
+
+# SEPolicy (বুট লুপ এড়াতে এটি মাস্ট)
+BOARD_VENDOR_SEPOLICY_DIRS += device/realme/samurai/sepolicy/vendor
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += device/realme/samurai/sepolicy/private
 
 # --- [FINAL] VENDOR INHERITANCE ---
 include vendor/realme/samurai/BoardConfigVendor.mk
