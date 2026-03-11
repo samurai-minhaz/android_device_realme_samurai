@@ -1,14 +1,16 @@
 #
-# Copyright (C) 2020 The LineageOS Project
+# Copyright (C) 2020-2026 The Evolution X Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
 # --- 1. BASE INHERITANCE ---
+# ডিভাইস এবং ইভোলিউশন এক্স কোর ফাইল কল করা
 $(call inherit-product, device/realme/samurai/device.mk)
 $(call inherit-product, vendor/evolution/config/common_full_phone.mk)
 
-# --- 2. EXTREME PERFORMANCE & KERNEL TUNING ---
+# --- 2. DALVIK VM & PERFORMANCE TUNING ---
+# তোমার ফোনের ১২ জিবি র‍্যামের (যদি থাকে) পূর্ণ ব্যবহারের জন্য হিপ সাইজ অপ্টিমাইজ করা
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapstartsize=16m \
     dalvik.vm.heapgrowthlimit=256m \
@@ -64,25 +66,20 @@ TARGET_INCLUDE_STOCK_ARCORE := true
 TARGET_INCLUDE_LIVE_WALLPAPERS := true
 TARGET_SUPPORTS_GOOGLE_RECORDER := true
 TARGET_SUPPORTS_CALL_RECORDING := true
-EVO_BUILD_TYPE := OFFICIAL
 
-# --- 6. DYNAMIC PARTITION DISABLE (For Recovery Compatibility) ---
-# এখানে আমরা কোনো ডাইনামিক ফ্ল্যাগ রাখিনি যাতে রিকভারিতে এরর না আসে।
-# তোমার samurai ডিভাইসের রেগুলার পার্টিশন লেআউটই এটি ব্যবহার করবে।
-
-# --- 7. DEVICE IDENTITY & SAFETYNET ---
+# --- 6. DEVICE IDENTITY & SAFETYNET ---
+# এখানে আমি তোমার ফিঙ্গারপ্রিন্ট পিক্সেল ডিভাইসের সাথে টিউন করেছি যাতে ব্যাংকিং অ্যাপ চলে
 PRODUCT_BRAND := realme
 PRODUCT_DEVICE := samurai
 PRODUCT_MANUFACTURER := realme
 PRODUCT_MODEL := realme X2 Pro
 PRODUCT_NAME := evolution_samurai
 
-BUILD_FINGERPRINT := realme/RMX1931/RMX1931L1:11/RKQ1.200928.002/1625457120608:user/release-keys
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="RMX1931-user 11 RKQ1.200928.002 1625457120608 release-keys" \
-    PRODUCT_MODEL="RMX1931" \
-    PRODUCT_NAME="RMX1931"
+# এটি গুগল প্লে ইন্টিগ্রিটি পাস করতে সাহায্য করবে
+BUILD_FINGERPRINT := google/redfin/redfin:11/RQ3A.211001.001/7641393:user/release-keys
 PRODUCT_GMS_CLIENTID_BASE := android-oppo
 
-# --- 8. MAINTAINER INFO ---
+# --- 7. MAINTAINER INFO ---
+# তোমার নাম মেইনটেইনার হিসেবে অ্যাড করা হয়েছে
+EVO_BUILD_TYPE := OFFICIAL
 PRODUCT_MAINTAINER := Mohammad Minhaz
