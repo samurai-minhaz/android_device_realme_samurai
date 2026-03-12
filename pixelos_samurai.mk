@@ -74,3 +74,6 @@ PRODUCT_NAME := pixelos_samurai
 
 # Fingerprint will be handled by PixelOS vendor
 PRODUCT_GMS_CLIENTID_BASE := android-oppo
+
+#Device Maintainer
+PIXELOS_MAINTAINER := "Mohammad Minhaz"
