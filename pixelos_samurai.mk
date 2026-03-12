@@ -73,13 +73,8 @@ PRODUCT_BRAND := realme
 PRODUCT_DEVICE := samurai
 PRODUCT_MANUFACTURER := realme
 PRODUCT_MODEL := realme X2 Pro
-PRODUCT_NAME := evolution_samurai
+PRODUCT_NAME := pixelos_samurai
 
 # এটি গুগল প্লে ইন্টিগ্রিটি পাস করতে সাহায্য করবে
 BUILD_FINGERPRINT := google/redfin/redfin:11/RQ3A.211001.001/7641393:user/release-keys
 PRODUCT_GMS_CLIENTID_BASE := android-oppo
-
-# --- 7. MAINTAINER INFO ---
-# তোমার নাম মেইনটেইনার হিসেবে অ্যাড করা হয়েছে
-EVO_BUILD_TYPE := OFFICIAL
-PRODUCT_MAINTAINER := Mohammad Minhaz
