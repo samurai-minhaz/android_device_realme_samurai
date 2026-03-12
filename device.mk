@@ -530,3 +530,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.fp.template_update_count=10 \
     ro.hardware.fp.interrupt=1 \
     persist.vendor.qcom.fp.wakeup_en=1
+
+# Extra Smoothness for 90Hz Display
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.set_touch_timer_ms=4000 \
+    ro.surface_flinger.set_display_menu_timer_ms=4000 \
+    ro.surface_flinger.use_smart_90_for_video=true
