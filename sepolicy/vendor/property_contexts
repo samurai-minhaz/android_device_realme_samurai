@@ -73,3 +73,22 @@ ro.oppo.regionmark                  u:object_r:vendor_radio_prop:s0
 ro.rf_version                       u:object_r:vendor_radio_prop:s0
 ro.sys.reserve.integrate            u:object_r:vendor_radio_prop:s0
 sys.build.display.full_id           u:object_r:vendor_radio_prop:s0
+
+# Evolution X Specific Properties
+ro.evolution.build.version          u:object_r:vendor_default_prop:s0
+ro.evolution.releasetype            u:object_r:vendor_default_prop:s0
+ro.evolution.maintainer             u:object_r:vendor_default_prop:s0
+ro.evolution.device                 u:object_r:vendor_default_prop:s0
+persist.sys.pinner_enabled          u:object_r:vendor_default_prop:s0
+
+# System Performance & Graphics tuning
+persist.sys.ui.hw                   u:object_r:vendor_default_prop:s0
+view.scroll_friction                u:object_r:vendor_default_prop:s0
+ro.config.smooth_scroll             u:object_r:vendor_default_prop:s0
+debug.cpurender.force               u:object_r:vendor_default_prop:s0
+ro.vendor.perf.scroll_opt           u:object_r:vendor_default_prop:s0
+
+# Display & Refresh Rate
+ro.surface_flinger.set_touch_timer_ms u:object_r:vendor_default_prop:s0
+ro.surface_flinger.set_display_menu_timer_ms u:object_r:vendor_default_prop:s0
+ro.surface_flinger.use_smart_90_for_video u:object_r:vendor_default_prop:s0
