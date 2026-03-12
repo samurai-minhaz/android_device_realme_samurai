@@ -27,3 +27,13 @@ get_prop(hal_fingerprint_default, vendor_adsprpc_prop)
 
 allow hal_fingerprint_default commondcs_hwservice:hwservice_manager find;
 allow hal_fingerprint_default hal_orms_hwservice:hwservice_manager find;
+
+# Android 14 Specific Fixes for Samurai
+binder_call(hal_fingerprint_default, platform_app)
+binder_call(hal_fingerprint_default, system_app)
+
+# Allow access to vendor fingerprint properties
+set_prop(hal_fingerprint_default, vendor_fp_prop)
+
+# Allow to interaction with system_server for biometrics
+allow hal_fingerprint_default system_server:binder { call transfer };
