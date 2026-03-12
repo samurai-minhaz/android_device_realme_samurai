@@ -1,16 +1,14 @@
 #
-# Copyright (C) 2020-2026 The Evolution X Project
+# Copyright (C) 2020-2026 The PixelOS Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
 # --- 1. BASE INHERITANCE ---
-# ডিভাইস এবং ইভোলিউশন এক্স কোর ফাইল কল করা
 $(call inherit-product, device/realme/samurai/device.mk)
 $(call inherit-product, vendor/pixelos/config/common_full_phone.mk)
 
 # --- 2. DALVIK VM & PERFORMANCE TUNING ---
-# তোমার ফোনের ১২ জিবি র‍্যামের (যদি থাকে) পূর্ণ ব্যবহারের জন্য হিপ সাইজ অপ্টিমাইজ করা
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapstartsize=16m \
     dalvik.vm.heapgrowthlimit=256m \
@@ -28,7 +26,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.perf.scroll_opt=true \
     persist.sys.io.scheduler=cfq
 
-# --- 3. 90Hz DISPLAY & TOUCH MONSTER (Zero Latency) ---
+# --- 3. 90Hz DISPLAY & TOUCH OPTIMIZATION ---
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.ui.hw=1 \
     view.scroll_friction=0.013 \
@@ -55,7 +53,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.hw_quickpoweron=true \
     persist.sys.use_dithering=1
 
-# --- 5. EVOLUTION X & PIXEL EXCLUSIVE PRO FEATURES ---
+# --- 5. PIXEL EXCLUSIVE FEATURES ---
 TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_GAPPS_ARCH := arm64
 TARGET_SUPPORTS_QUICK_TAP := true
@@ -67,14 +65,12 @@ TARGET_INCLUDE_LIVE_WALLPAPERS := true
 TARGET_SUPPORTS_GOOGLE_RECORDER := true
 TARGET_SUPPORTS_CALL_RECORDING := true
 
-# --- 6. DEVICE IDENTITY & SAFETYNET ---
-# এখানে আমি তোমার ফিঙ্গারপ্রিন্ট পিক্সেল ডিভাইসের সাথে টিউন করেছি যাতে ব্যাংকিং অ্যাপ চলে
+# --- 6. DEVICE IDENTITY ---
 PRODUCT_BRAND := realme
 PRODUCT_DEVICE := samurai
 PRODUCT_MANUFACTURER := realme
-PRODUCT_MODEL := realme X2 Pro
+PRODUCT_MODEL := RMX1931
 PRODUCT_NAME := pixelos_samurai
 
-# এটি গুগল প্লে ইন্টিগ্রিটি পাস করতে সাহায্য করবে
-BUILD_FINGERPRINT := google/redfin/redfin:11/RQ3A.211001.001/7641393:user/release-keys
+# Fingerprint will be handled by PixelOS vendor
 PRODUCT_GMS_CLIENTID_BASE := android-oppo
