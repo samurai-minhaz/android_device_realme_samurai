@@ -7,7 +7,7 @@
 # --- 1. BASE INHERITANCE ---
 # ডিভাইস এবং ইভোলিউশন এক্স কোর ফাইল কল করা
 $(call inherit-product, device/realme/samurai/device.mk)
-$(call inherit-product, vendor/evolution/config/common_full_phone.mk)
+$(call inherit-product, vendor/pixelos/config/common_full_phone.mk)
 
 # --- 2. DALVIK VM & PERFORMANCE TUNING ---
 # তোমার ফোনের ১২ জিবি র‍্যামের (যদি থাকে) পূর্ণ ব্যবহারের জন্য হিপ সাইজ অপ্টিমাইজ করা
