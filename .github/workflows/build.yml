@@ -1,0 +1,13 @@
+name: AI Cloud ROM Builder
+on:
+  repository_dispatch:
+    types: [start-build] # অ্যাপ থেকে এই সিগন্যাল আসবে
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Triggering Cirrus CI
+        run: |
+          echo "Requesting Cloud Build for Samurai..."
+          # এখানে Cirrus CI কে কল করার কমান্ড থাকবে
