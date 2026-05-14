@@ -25,9 +25,9 @@ task:
     
     - echo "Cloning Device, Vendor, and Kernel trees..."
     # এখানে আপনার নিজের ৩টি ট্রির লিঙ্ক দিন
-    - git clone https://github.com/MohammadMinhaz/android_device_realme_samurai.git -b 14 device/realme/samurai
-    - git clone https://github.com/MohammadMinhaz/android_vendor_realme_samurai.git -b 14 vendor/realme/samurai
-    - git clone https://github.com/MohammadMinhaz/android_kernel_realme_samurai.git -b 14 kernel/realme/samurai
+    - git clone https://github.com/samurai-minhaz/android_device_realme_samurai -b 14 device/realme/samurai
+    - git clone https://github.com/samurai-minhaz/proprietary_vendor_realme_samurai -b 14 vendor/realme/samurai
+    - git clone https://github.com/samurai-minhaz/android_kernel_realme_sm8150 -b 14 kernel/realme/samurai
 
     - echo "Starting the build process..."
     - source build/envsetup.sh
