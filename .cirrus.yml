@@ -1,0 +1,39 @@
+task:
+  name: "ROM Build for Samurai (Realme X2 Pro)"
+  timeout_in: 120m # ২ ঘণ্টা সময় দেওয়া হয়েছে
+  container:
+    image: aospa/aospa:latest # রম বিল্ডের জন্য প্রয়োজনীয় টুলস সহ ইমেজ
+    cpu: 8 # আপনার প্রয়োজন অনুযায়ী বাড়াতে পারেন
+    memory: 32G # মেমোরি বেশি থাকলে বিল্ড ফেইল হবে না
+
+  # এনভায়রনমেন্ট ভেরিয়েবল
+  env:
+    CIRRUS_WORKING_DIR: "/tmp/rom"
+    DEVICE: "samurai"
+    LUNCH_COMBO: "evolution_samurai-userdebug" # আপনার রমের লাঞ্চ কমান্ড অনুযায়ী পরিবর্তন করুন
+
+  # বিল্ড স্ক্রিপ্ট
+  build_script:
+    - echo "Cleaning up space..."
+    - rm -rf /tmp/rom && mkdir -p /tmp/rom
+    - cd /tmp/rom
+    
+    - echo "Syncing ROM source..."
+    # এখানে আপনার রমের রিপোজিটরি সিঙ্ক করার কমান্ড দিন
+    - repo init -u https://github.com/Evolution-X/manifest -b udc # উদাহরণ হিসেবে দেওয়া
+    - repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+    
+    - echo "Cloning Device, Vendor, and Kernel trees..."
+    # এখানে আপনার নিজের ৩টি ট্রির লিঙ্ক দিন
+    - git clone https://github.com/MohammadMinhaz/android_device_realme_samurai.git -b 14 device/realme/samurai
+    - git clone https://github.com/MohammadMinhaz/android_vendor_realme_samurai.git -b 14 vendor/realme/samurai
+    - git clone https://github.com/MohammadMinhaz/android_kernel_realme_samurai.git -b 14 kernel/realme/samurai
+
+    - echo "Starting the build process..."
+    - source build/envsetup.sh
+    - lunch $LUNCH_COMBO
+    - mka sevendust -j$(nproc --all) # আপনার রমের বিল্ড কমান্ড (যেমন: mka bacon/brunch)
+
+  # বিল্ড শেষে ফাইল আপলোড করার জন্য
+  upload_artifacts:
+    path: "out/target/product/samurai/*.zip"
