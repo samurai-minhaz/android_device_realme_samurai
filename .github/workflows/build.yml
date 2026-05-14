@@ -10,4 +10,11 @@ jobs:
       - name: Triggering Cirrus CI
         run: |
           echo "Requesting Cloud Build for Samurai..."
-          # এখানে Cirrus CI কে কল করার কমান্ড থাকবে
+          
+          # Cirrus CI API কল করার কমান্ড
+          curl -X POST "https://api.cirrus-ci.com/graphql" \
+          -H "Authorization: Bearer ${{ secrets.CIRRUS_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "query": "mutation { createBuild(input: {repositoryId: \"'${{ secrets.CIRRUS_REPO_ID }}'\", branch: \"main\"}) { build { id } } }"
+          }'
