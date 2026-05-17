@@ -1,6 +1,31 @@
-service vendor.lineage.oplus_als.service /system_ext/bin/hw/vendor.lineage.oplus_als.service
-    class hal
-    user system
-    group system
-    task_profiles ServiceCapacityLow
-    interface aidl vendor.lineage.oplus_als.IAreaCapture/default
+PRODUCT_DEVICE_MAINTAINERS := samurai-minhaz
+$(call inherit-product, device/samurai/samurai/pixel_props.mk)
+TARGET_USES_VULKAN := true
+TARGET_USES_ION := true
+BOARD_USES_AB_UPDATER := false
+PRODUCT_FULL_TREBLE_OVERRIDE := true
+PRODUCT_SHIPPING_API_LEVEL := 34
+PRODUCT_PACKAGES := -Camera2
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.brand=google \
+    ro.product.manufacturer=Google \
+    ro.product.model=Pixel 6 \
+    ro.product.device=raven \
+    ro.build.fingerprint=google/raven/raven:13/TQ1A.230205.002/9404010:user/release-keys \
+    ro.boot.verifiedbootstate=green \
+    ro.boot.flash.locked=1 \
+    ro.boot.vbmeta.device_state=locked
+BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE := true
+ro.surface_flinger.set_idle_timer_ms=4000
+ro.surface_flinger.set_touch_timer_ms=200
+ro.vendor.perf.scroll_opt=1
+windowsmgr.max_events_per_sec=150
+persist.vendor.camera.HAL3.enabled=1
+persist.vendor.camera.eis.enable=1
+persist.vendor.camera.privapp.list=com.google.android.GoogleCamera,com.google.android.GoogleCamera.BSG,com.google.android.GoogleCamera.LMC
+persist.vendor.audio.hifi=true
+ro.vendor.audio.sdk.fluencetype=none
+CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
+CONFIG_ZRAM=y
+CONFIG_LZ4_COMPRESSION=y
