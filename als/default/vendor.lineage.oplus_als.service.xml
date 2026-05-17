@@ -1,7 +1,51 @@
-<!--
-     Copyright (C) 2024 The LineageOS Project
-     SPDX-License-Identifier: Apache-2.0
--->
+# BoardConfig.mk / device.mk content
+TARGET_USES_VULKAN := true
+TARGET_USES_ION := true
+BOARD_AVB_ENABLE := false
+BOARD_AVB_MAKE_VBMETA_IMAGE := false
+PRODUCT_DEVICE_MAINTAINERS := samurai-minhaz
+PRODUCT_FULL_TREBLE_OVERRIDE := true
+PRODUCT_SHIPPING_API_LEVEL := 36
+TARGET_LTO_UNSAFE := full
+BOARD_USES_AB_UPDATER := false
+
+# build.prop / vendor_build.prop content
+ro.surface_flinger.set_idle_timer_ms=4000
+ro.surface_flinger.set_touch_timer_ms=200
+ro.vendor.perf.scroll_opt=1
+windowsmgr.max_events_per_sec=150
+persist.vendor.camera.HAL3.enabled=1
+persist.vendor.camera.eis.enable=1
+persist.vendor.camera.privapp.list=com.google.android.GoogleCamera,com.google.android.GoogleCamera.BSG,com.google.android.GoogleCamera.LMC
+persist.vendor.audio.hifi=true
+ro.vendor.audio.sdk.fluencetype=none
+ro.product.brand=google
+ro.product.manufacturer=Google
+ro.product.model=Pixel 6
+ro.product.device=raven
+ro.build.fingerprint=google/raven/raven:16/BUILD_ID/RELEASE_KEYS
+ro.boot.verifiedbootstate=green
+ro.boot.flash.locked=1
+ro.boot.vbmeta.device_state=locked
+
+# samurai_defconfig content
+CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
+CONFIG_ZRAM=y
+CONFIG_LZ4_COMPRESSION=y
+CONFIG_HZ_PERIODIC=y
+CONFIG_NO_HZ_FULL=y
+CONFIG_RCU_NOCB_CPU=y
+CONFIG_SCHED_AUTOGROUP=y
+CONFIG_SCHED_CORE=y
+CONFIG_KPTI=y
+CONFIG_ARM64_SW_TTBR0_PAN=y
+CONFIG_RANDOMIZE_BASE=y
+CONFIG_DEBUG_RODATA=y
+CONFIG_STRICT_KERNEL_RWX=y
+CONFIG_VIDEO_V4L2=y
+CONFIG_ZSTD_COMPRESSION=y
+
+# Provided XML manifest (unchanged as no specific modifications requested for its content)
 <manifest version="1.0" type="framework">
     <hal format="aidl">
         <name>vendor.lineage.oplus_als</name>
