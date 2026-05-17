@@ -1,3 +1,33 @@
+TARGET_USES_VULKAN := true
+TARGET_USES_ION := true
+BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE := true
+BOARD_USES_AB_UPDATER := false
+PRODUCT_DEVICE_MAINTAINERS := samurai-minhaz
+TARGET_LTO_UNSAFE := full
+
+ro.surface_flinger.set_idle_timer_ms=4000
+ro.surface_flinger.set_touch_timer_ms=200
+ro.vendor.perf.scroll_opt=1
+windowsmgr.max_events_per_sec=150
+persist.vendor.camera.HAL3.enabled=1
+persist.vendor.camera.eis.enable=1
+persist.vendor.camera.privapp.list=com.google.android.GoogleCamera,com.google.android.GoogleCamera.BSG,com.google.android.GoogleCamera.LMC
+persist.vendor.audio.hifi=true
+ro.vendor.audio.sdk.fluencetype=none
+ro.product.brand=google
+ro.product.manufacturer=Google
+ro.product.model=Pixel 6
+ro.product.device=raven
+ro.build.fingerprint=google/raven/raven:16/BUILD_ID.DATE.001/BUILD_NUMBER:user/release-keys
+ro.boot.verifiedbootstate=green
+ro.boot.flash.locked=1
+ro.boot.vbmeta.device_state=locked
+
+CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
+CONFIG_ZRAM=y
+CONFIG_LZ4_COMPRESSION=y
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!--- Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.            -->
 <!---                                                                           -->
