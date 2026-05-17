@@ -91,6 +91,7 @@ TARGET_USES_DRM_PP := true
 TARGET_USES_GRALLOC4 := true
 TARGET_USES_HWC2 := true
 TARGET_USES_ION := true
+TARGET_USES_VULKAN := true
 TARGET_HAS_HDR_DISPLAY := true
 TARGET_HAS_WIDE_COLOR_DISPLAY := true
 
@@ -173,6 +174,7 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
@@ -198,21 +200,22 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit from the proprietary version
 include vendor/realme/samurai/BoardConfigVendor.mk
+#
+# Content for device/realme/samurai/system.prop
+#
+# Ultra-Smooth 90Hz Display
+ro.surface_flinger.set_idle_timer_ms=4000
+ro.surface_flinger.set_touch_timer_ms=200
 
+# Fix Lag & Jitter
+ro.vendor.perf.scroll_opt=1
+windowsmgr.max_events_per_sec=150
 
+# Camera HAL3 & Advanced GCam Support
+persist.vendor.camera.HAL3.enabled=1
+persist.vendor.camera.eis.enable=1
+persist.vendor.camera.privapp.list=com.google.android.GoogleCamera,com.google.android.GoogleCamera.BSG,com.google.android.GoogleCamera.LMC
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Premium Audio Stack
+persist.vendor.audio.hifi=true
+ro.vendor.audio.sdk.fluencetype=none
