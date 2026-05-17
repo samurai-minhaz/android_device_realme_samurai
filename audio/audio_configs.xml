@@ -60,6 +60,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <property name="vendor.audio.use.sw.mpegh.decoder" value="false"/>
         <property name="vendor.audio.flac.sw.decoder.24bit" value="true"/>
         <property name="vendor.audio.hw.aac.encoder" value="true"/>
+        <property name="persist.vendor.audio.hifi" value="true"/>
+        <property name="ro.vendor.audio.sdk.fluencetype" value="none"/>
         <flag name="aac_adts_offload_enabled" value="true" />
         <flag name="alac_offload_enabled" value="true" />
         <flag name="ape_offload_enabled" value="true" />
