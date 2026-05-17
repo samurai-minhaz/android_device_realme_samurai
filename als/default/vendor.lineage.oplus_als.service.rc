@@ -1,31 +1,41 @@
 PRODUCT_DEVICE_MAINTAINERS := samurai-minhaz
+PRODUCT_BUILD_PROP_FLAGS += ro.rom.maintainer=Samurai-Minhaz
 $(call inherit-product, device/samurai/samurai/pixel_props.mk)
 TARGET_USES_VULKAN := true
 TARGET_USES_ION := true
 BOARD_USES_AB_UPDATER := false
 PRODUCT_FULL_TREBLE_OVERRIDE := true
-PRODUCT_SHIPPING_API_LEVEL := 34
-PRODUCT_PACKAGES := -Camera2
+PRODUCT_SHIPPING_API_LEVEL := 36
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint-service.samurai \
+    android.hardware.lights-service.samurai \
+    android.hardware.health-service.samurai \
+    android.hardware.powershare-service.samurai \
+    -Camera2
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.brand=google \
     ro.product.manufacturer=Google \
-    ro.product.model=Pixel 6 \
-    ro.product.device=raven \
-    ro.build.fingerprint=google/raven/raven:13/TQ1A.230205.002/9404010:user/release-keys \
+    ro.product.model=Pixel 9 Pro \
+    ro.product.device=caiman \
+    ro.build.fingerprint=google/caiman/caiman:16/BP1A.250105.002/1234567:user/release-keys \
     ro.boot.verifiedbootstate=green \
     ro.boot.flash.locked=1 \
-    ro.boot.vbmeta.device_state=locked
-BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE := true
-ro.surface_flinger.set_idle_timer_ms=4000
-ro.surface_flinger.set_touch_timer_ms=200
-ro.vendor.perf.scroll_opt=1
-windowsmgr.max_events_per_sec=150
-persist.vendor.camera.HAL3.enabled=1
-persist.vendor.camera.eis.enable=1
-persist.vendor.camera.privapp.list=com.google.android.GoogleCamera,com.google.android.GoogleCamera.BSG,com.google.android.GoogleCamera.LMC
-persist.vendor.audio.hifi=true
-ro.vendor.audio.sdk.fluencetype=none
+    ro.boot.vbmeta.device_state=locked \
+    ro.surface_flinger.set_idle_timer_ms=4000 \
+    ro.surface_flinger.set_touch_timer_ms=200 \
+    ro.vendor.perf.scroll_opt=1 \
+    windowsmgr.max_events_per_sec=150 \
+    persist.vendor.camera.HAL3.enabled=1 \
+    persist.vendor.camera.eis.enable=1 \
+    persist.vendor.camera.privapp.list=com.google.android.GoogleCamera,com.google.android.GoogleCamera.BSG,com.google.android.GoogleCamera.LMC \
+    persist.vendor.audio.hifi=true \
+    ro.vendor.audio.sdk.fluencetype=none \
+    persist.sys.pixel.camera.features=true \
+    persist.sys.pixel_storage_unlimited=true \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+BOARD_AVB_ENABLE := false
+BOARD_AVB_MAKE_VBMETA_IMAGE := false
 CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
 CONFIG_ZRAM=y
 CONFIG_LZ4_COMPRESSION=y
+CONFIG_ZRAM_DEF_COMP_LZ4=y
