@@ -24,4 +24,5 @@ cc_binary {
         "liblog",
         "vendor.lineage.oplus_als-V1-ndk",
     ],
+    lto: "full",
 }
