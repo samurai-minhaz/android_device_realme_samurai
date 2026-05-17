@@ -8,64 +8,89 @@
 # Inherit from device-specific configuration first
 $(call inherit-product, device/realme/samurai/device.mk)
 
-# Inherit from PixelOS common configuration
+# Enable GApps and inherit from PixelOS common configuration
+WITH_GMS := true
+TARGET_GAPPS_ARCH := arm64
 $(call inherit-product, vendor/pixelos/config/common_full_phone.mk)
 
 # --- 2. DEVICE IDENTITY & MAINTAINER ---
-PRODUCT_BRAND := realme
+PRODUCT_BRAND := Google
 PRODUCT_DEVICE := samurai
 PRODUCT_MANUFACTURER := realme
-PRODUCT_MODEL := RMX1931
+PRODUCT_MODEL := Pixel 9 Pro
 PRODUCT_NAME := pixelos_samurai
 
-# Device Maintainer 
-PIXELOS_MAINTAINER := "Mohammad Minhaz" 
+# Maintainer Signature & Build Properties
+PRODUCT_BUILD_PROP_FLAGS += ro.rom.maintainer=Samurai-Minhaz
 
-# Fingerprint base for Oppo/Realme devices
-PRODUCT_GMS_CLIENTID_BASE := android-oppo
+# Play Integrity & Device Spoofing (Android 16 Baklava)
+BUILD_FINGERPRINT := google/caiman/caiman:16/BP1A.250105.002/1234567:user/release-keys
+PRODUCT_GMS_CLIENTID_BASE := android-google
 
-# --- 3. PERFORMANCE & DALVIK VM TUNING ---
+# --- 3. CORE OPTIMIZATION FLAGS ---
+TARGET_USES_VULKAN := true
+TARGET_USES_ION := true
+BOARD_AVB_ENABLE := false
+BOARD_USES_THINLTO := true
+
+# --- 4. PERFORMANCE & DALVIK VM TUNING ---
 # Optimized for 8GB/12GB RAM (Realme X2 Pro standard)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
+
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapstartsize=16m \
-    dalvik.vm.heapgrowthlimit=256m \
-    dalvik.vm.heapsize=512m \
-    dalvik.vm.heaptargetutilization=0.75 \
-    dalvik.vm.heapminfree=2m \
-    dalvik.vm.heapmaxfree=8m \
     ro.vendor.qti.am.resourcemanager.enable=true \
     ro.sys.fw.bg_apps_limit=60 \
     persist.sys.binary_xml=true \
-    ro.vendor.perf.scroll_opt=true \
-    persist.sys.io.scheduler=mq-deadline
+    ro.vendor.perf.scroll_opt=1 \
+    windowsmgr.max_events_per_sec=150 \
+    persist.sys.io.scheduler=mq-deadline \
+    dalvik.vm.dex2oat64-threads=8
 
-# --- 4. 90Hz DISPLAY & TOUCH OPTIMIZATION ---
-# Specifically tuned for the samurai's 90Hz panel
+# --- 5. 90Hz DISPLAY & TOUCH OPTIMIZATION ---
+# Specifically tuned for the samurai's 90Hz panel for zero-jitter
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.ui.hw=1 \
-    view.scroll_friction=0.013 \
-    debug.sf.disable_backpressure=1 \
+    ro.surface_flinger.set_idle_timer_ms=4000 \
+    ro.surface_flinger.set_touch_timer_ms=200 \
     ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
     ro.surface_flinger.has_wide_color_display=true \
     ro.surface_flinger.has_HDR_display=true \
-    ro.surface_flinger.set_touch_timer_ms=200 \
-    ro.surface_flinger.set_display_menu_timer_ms=1500 \
-    ro.surface_flinger.use_smart_90_for_video=true \
-    touch.device.resample=1
+    ro.surface_flinger.use_color_management=true \
+    persist.sys.sf.native_mode=2 \
+    debug.sf.disable_backpressure=1 \
+    touch.device.resample=1 \
+    view.scroll_friction=0.013
 
-# --- 5. AUDIO & NETWORK ---
+# --- 6. CAMERA HAL3 & ADVANCED GCAM SUPPORT ---
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.camera.HAL3.enabled=1 \
+    persist.vendor.camera.eis.enable=1 \
+    persist.vendor.camera.privapp.list=com.google.android.GoogleCamera,com.google.android.GoogleCamera.BSG,com.google.android.GoogleCamera.LMC \
+    persist.sys.pixel.camera.features=true
+
+# --- 7. PREMIUM AUDIO STACK ---
+# Lossless rendering for JamesDSP, ViPER4Android, and Dolby Atmos
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.audio.hifi=true \
+    ro.vendor.audio.sdk.fluencetype=none \
     ro.config.vc_call_vol_steps=14 \
     ro.config.media_vol_steps=25 \
-    persist.vendor.audio.hw.binder.size_kbyte=1024 \
-    wifi.supplicant_scan_interval=180
+    persist.vendor.audio.hw.binder.size_kbyte=1024
 
-# --- 6. PIXEL EXCLUSIVE FEATURES (A16 Compatibility) ---
+# --- 8. NETWORK & CONNECTIVITY ---
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.supplicant_scan_interval=180 \
+    ro.com.google.clientidbase=android-google
+
+# --- 9. PIXEL EXCLUSIVE FEATURES (A16 Compatibility) ---
 TARGET_BOOT_ANIMATION_RES := 1080
-TARGET_GAPPS_ARCH := arm64
 TARGET_SCREEN_DENSITY := 480
 
-# Pixel Specific Flags 
+# Pixel Exclusive Flags & AI Suite
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.pixel_storage_unlimited=true \
+    ro.storage_manager.enabled=true \
+    ro.com.google.gms.google_one_eligible=true
+
 TARGET_SUPPORTS_QUICK_TAP := true 
 TARGET_FACE_UNLOCK_SUPPORTED := true
 TARGET_SUPPORTS_NEXT_GEN_ASSISTANT := true
