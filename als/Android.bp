@@ -12,7 +12,7 @@ aidl_interface {
     owner: "lineage",
     backend: {
         cpp: {
-            enabled: false,
+            enabled: true,
         },
         java: {
             enabled: false,
