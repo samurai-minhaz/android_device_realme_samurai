@@ -13,10 +13,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 
-# --- [STAGE 2] PERFORMANCE & OPTIMIZATION FLAGS ---
+# --- [STAGE 2] PERFORMANCE & OPTIMIZATION FLAGS (A16 READY) ---
 TARGET_USES_VULKAN := true
 TARGET_USES_ION := true
 BOARD_AVB_ENABLE := false
+PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 PRODUCT_BUILD_PROP_FLAGS += ro.rom.maintainer=Samurai-Minhaz
 
 # --- [STAGE 3] PERFORMANCE MEMORY TUNING ---
@@ -103,11 +104,10 @@ PRODUCT_PACKAGES += \
 # --- [STAGE 11] SYSTEM SERVICES (Android 16 AIDL Transition) ---
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint-service.samurai \
-    vendor.goodix.hardware.biometrics.fingerprint@2.1 \
     android.hardware.powershare@1.0-service.samurai \
-    android.hardware.usb@1.0-service
+    android.hardware.usb-service.example
 
-# --- [STAGE 12] ULTIMATE PROPERTIES ---
+# --- [STAGE 12] ULTIMATE PROPERTIES (A16 OPTIMIZED) ---
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.set_idle_timer_ms=4000 \
     ro.surface_flinger.set_touch_timer_ms=200 \
@@ -125,13 +125,56 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.egl=adreno \
     ro.hardware.vulkan=adreno
 
-# Play Integrity & Device Spoofing (Pixel 9 Pro XL)
+# Play Integrity & Device Spoofing (Pixel 9 Pro XL - Android 15/16 Base)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.model=Pixel 9 Pro XL \
     ro.product.brand=google \
     ro.product.manufacturer=Google \
-    ro.build.fingerprint=google/komodo/komodo:15/AP3A.241005.015/12491514:user/release-keys
+    ro.build.fingerprint=google/komodo/komodo:15/AP3A.241005.015/12491514:user/release-keys \
+    ro.product.device=komodo \
+    ro.product.system.model=Pixel 9 Pro XL \
+    ro.product.system.device=komodo
 
 # Power & Speed
 PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI Launcher3QuickStep
 $(call inherit-product, packages/apps/RealmeParts/parts.mk)
+
+# --- [KERNEL BUILD CONFIG] build.config.samurai ---
+ARCH=arm64
+CLANG_PREBUILT_BIN=prebuilts/clang/host/linux-x86/clang-r530567
+CC=clang
+LD=ld.lld
+AR=llvm-ar
+NM=llvm-nm
+OBJCOPY=llvm-objcopy
+OBJDUMP=llvm-objdump
+STRIP=llvm-strip
+GKI_KERNEL=1
+BUILD_GKI_CERTIFICATION_TOOLS=1
+FILES="
+arch/arm64/boot/Image.lz4
+arch/arm64/boot/dts/vendor/qcom/samurai.dtb
+"
+
+# --- [KERNEL DEFCONFIG] samurai_defconfig ---
+CONFIG_BPF_SYSCALL=y
+CONFIG_BPF_JIT=y
+CONFIG_CGROUP_BPF=y
+CONFIG_NET_CLS_BPF=y
+CONFIG_NET_ACT_BPF=y
+CONFIG_LRU_GEN=y
+CONFIG_LRU_GEN_ENABLED=y
+CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
+CONFIG_ZRAM=y
+CONFIG_LZ4_COMPRESSION=y
+CONFIG_ZRAM_DEF_COMP_LZ4=y
+CONFIG_DEBUG_INFO_BTF=y
+# CONFIG_ANDROID_LOW_MEMORY_KILLER is not set
+
+# --- [UAPI BINDER] include/uapi/linux/android/binder.h ---
+#ifndef _UAPI_LINUX_ANDROID_BINDER_H
+#define _UAPI_LINUX_ANDROID_BINDER_H
+#include <linux/types.h>
+#include <linux/ioctl.h>
+#define BINDER_CURRENT_PROTOCOL_VERSION 8
+#endif
