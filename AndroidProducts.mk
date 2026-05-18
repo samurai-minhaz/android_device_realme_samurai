@@ -1,15 +1,10 @@
-# Copyright (C) 2019 The LineageOS Project
-#
-# SPDX-License-Identifier: Apache-2.0
-#
-
+# device/samurai/samurai/pixelos_samurai.mk
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/pixelos_samurai.mk
 
 COMMON_LUNCH_CHOICES := \
     pixelos_samurai-userdebug
 
-# device/samurai/samurai/pixelos_samurai.mk
 WITH_GMS := true
 TARGET_GAPPS_ARCH := arm64
 $(call inherit-product, vendor/pixelos/config/common_full_phone.mk)
@@ -23,7 +18,7 @@ PRODUCT_MODEL := Pixel 9 Pro
 PRODUCT_GMS_CLIENTID_BASE := android-google
 
 PRODUCT_BUILD_PROP_FLAGS += ro.rom.maintainer=Samurai-Minhaz
-PRODUCT_SHIPPING_API_LEVEL := 35
+PRODUCT_SHIPPING_API_LEVEL := 36
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
 $(call inherit-product, $(LOCAL_DIR)/pixel_props.mk)
@@ -47,7 +42,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.audio.sdk.fluencetype=none \
     ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
     ro.surface_flinger.has_wide_color_display=true \
-    ro.surface_flinger.use_color_management=true
+    ro.surface_flinger.use_color_management=true \
+    ro.rom.maintainer=Samurai-Minhaz
 
 # device/samurai/samurai/BoardConfig.mk
 TARGET_ARCH := arm64
@@ -135,3 +131,36 @@ CONFIG_DEBUG_RODATA=y
 CONFIG_STRICT_KERNEL_RWX=y
 CONFIG_VIDEO_V4L2=y
 CONFIG_IIO=y
+CONFIG_BPF_SYSCALL=y
+CONFIG_BPF_JIT=y
+CONFIG_CGROUP_BPF=y
+CONFIG_NET_CLS_BPF=y
+CONFIG_NET_ACT_BPF=y
+CONFIG_DEBUG_INFO_BTF=y
+CONFIG_CFI_CLANG=y
+
+# build.config.samurai
+ARCH=arm64
+CLANG_PREBUILT_BIN=prebuilts/clang/host/linux-x86/clang-r530567
+CC=clang
+LD=ld.lld
+AR=llvm-ar
+NM=llvm-nm
+OBJCOPY=llvm-objcopy
+OBJDUMP=llvm-objdump
+STRIP=llvm-strip
+
+FILES="
+arch/arm64/boot/Image.lz4
+arch/arm64/boot/dts/vendor/samurai.dtb
+"
+GKI_KERNEL=1
+BUILD_GKI_CERTIFICATION_TOOLS=1
+
+# include/uapi/linux/android/binder.h
+#ifndef _UAPI_LINUX_ANDROID_BINDER_H
+#define _UAPI_LINUX_ANDROID_BINDER_H
+#include <linux/types.h>
+#include <linux/ioctl.h>
+#define BINDER_CURRENT_PROTOCOL_VERSION 8
+#endif
