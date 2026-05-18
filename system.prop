@@ -10,6 +10,8 @@ dalvik.vm.image-dex2oat-filter=everything
 dalvik.vm.image-dex2oat-threads=8
 
 # Audio
+persist.vendor.audio.hifi=true
+ro.vendor.audio.sdk.fluencetype=none
 ro.audio.monitorRotation=true
 ro.config.media_vol_steps=25
 ro.config.vc_call_vol_steps=7
@@ -20,7 +22,14 @@ ro.bluetooth.library_name=libbluetooth.so
 qcom.bluetooth.soc=cherokee
 vendor.bluetooth.soc=cherokee
 
+# Build & Maintainer
+ro.rom.maintainer=Samurai-Minhaz
+PRODUCT_BUILD_PROP_FLAGS += ro.rom.maintainer=Samurai-Minhaz
+
 # Camera
+persist.vendor.camera.HAL3.enabled=1
+persist.vendor.camera.eis.enable=1
+persist.vendor.camera.privapp.list=com.google.android.GoogleCamera,com.google.android.GoogleCamera.BSG,com.google.android.GoogleCamera.LMC
 ro.camera.hfr.enable=1
 ro.camera.relight.enable=0
 ro.camera.attr.detect.enable=1
@@ -37,13 +46,25 @@ ro.charger.enable_suspend=true
 persist.vendor.data.profile_update=true
 persist.vendor.data.mode=concurrent
 
-# Fingerprint
+# Display & Smoothness (90Hz Optimization)
+ro.surface_flinger.set_idle_timer_ms=4000
+ro.surface_flinger.set_touch_timer_ms=200
+ro.vendor.perf.scroll_opt=1
+windowsmgr.max_events_per_sec=150
+ro.min.refresh.rate=90
+ro.max.refresh.rate=90
+
+# Fingerprint (Android 16 AIDL Transition)
 vendor.flash.locked=0
+persist.vendor.qti.fp.aidl=true
 
 # FUSE
 persist.sys.fuse.passthrough.enable=true
 
-# Graphics
+# Graphics & Performance
+TARGET_USES_VULKAN := true
+TARGET_USES_ION := true
+ro.hwui.renderer=vulkan
 debug.sf.auto_latch_unsignaled=0
 debug.sf.disable_client_composition_cache=1
 debug.sf.enable_hwc_vds=1
@@ -67,6 +88,12 @@ vendor.iop.enable_uxe=1
 persist.data.iwlan.enable=true
 persist.data.iwlan.rekey=4294967295
 
+# Kernel & Memory
+CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
+CONFIG_ZRAM=y
+CONFIG_LZ4_COMPRESSION=y
+ro.vendor.qti.sys.fw.bservice_enable=true
+
 # Media
 media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 media.stagefright.thumbnail.prefer_hw_codecs=true
@@ -74,17 +101,20 @@ persist.mm.enable.prefetch=true
 ro.media.recorder-max-base-layer-fps=60
 vendor.media.vpp.enable=true
 
-# Memory optimizations
-ro.vendor.qti.sys.fw.bservice_enable=true
-
 # Mock
-persist.sys.force_sw_gles=1
+persist.sys.force_sw_gles=0
 
 # Netflix custom property
 ro.netflix.bsp_rev=Q855-16947-1
 
 # NFC
 ro.nfc.port=I2C
+
+# Play Integrity & Device Spoofing
+ro.product.model=Pixel 9 Pro XL
+ro.product.brand=google
+ro.product.manufacturer=Google
+ro.build.fingerprint=google/komodo/komodo:15/AP3A.241005.015/12533533:user/release-keys
 
 # RCS and IMS
 persist.dbg.ims_volte_enable=1
@@ -116,6 +146,10 @@ persist.data.df.agg.dl_size=4096
 persist.data.df.mux_count=8
 persist.data.df.iwlan_mux=9
 persist.data.df.dev_name=rmnet_usb0
+
+# Security & Boot
+BOARD_AVB_ENABLE := false
+# SELinux Enforcing is handled via BoardConfig.mk and Kernel Command Line
 
 # Sensors
 persist.vendor.sensors.enable.mag_filter=true
