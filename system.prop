@@ -15,6 +15,8 @@ ro.vendor.audio.sdk.fluencetype=none
 ro.audio.monitorRotation=true
 ro.config.media_vol_steps=25
 ro.config.vc_call_vol_steps=7
+persist.audio.vns.mode=2
+ro.vendor.audio.vpp.hifi.enable=1
 
 # Bluetooth
 bt.max.hfpclient.connections=1
@@ -53,10 +55,14 @@ ro.vendor.perf.scroll_opt=1
 windowsmgr.max_events_per_sec=150
 ro.min.refresh.rate=90
 ro.max.refresh.rate=90
+ro.surface_flinger.refresh_rate_switching=true
+ro.surface_flinger.has_wide_color_display=true
+ro.surface_flinger.has_HDR_display=true
 
 # Fingerprint (Android 16 AIDL Transition)
 vendor.flash.locked=0
 persist.vendor.qti.fp.aidl=true
+ro.hardware.fp.aidl_service=true
 
 # FUSE
 persist.sys.fuse.passthrough.enable=true
@@ -88,7 +94,19 @@ vendor.iop.enable_uxe=1
 persist.data.iwlan.enable=true
 persist.data.iwlan.rekey=4294967295
 
-# Kernel & Memory
+# Kernel & Memory (Android 16 GKI & Performance)
+ARCH=arm64
+CLANG_PREBUILT_BIN=prebuilts/clang/host/linux-x86/clang-r530567
+GKI_KERNEL=1
+BUILD_GKI_CERTIFICATION_TOOLS=1
+CONFIG_BPF_SYSCALL=y
+CONFIG_BPF_JIT=y
+CONFIG_CGROUP_BPF=y
+CONFIG_NET_CLS_BPF=y
+CONFIG_NET_ACT_BPF=y
+CONFIG_LRU_GEN=y
+CONFIG_LRU_GEN_ENABLED=y
+CONFIG_DEBUG_INFO_BTF=y
 CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
 CONFIG_ZRAM=y
 CONFIG_LZ4_COMPRESSION=y
@@ -110,10 +128,12 @@ ro.netflix.bsp_rev=Q855-16947-1
 # NFC
 ro.nfc.port=I2C
 
-# Play Integrity & Device Spoofing
+# Play Integrity & Device Spoofing (Pixel 9 Pro XL Baklava-Ready)
 ro.product.model=Pixel 9 Pro XL
 ro.product.brand=google
 ro.product.manufacturer=Google
+ro.product.device=komodo
+ro.build.product=komodo
 ro.build.fingerprint=google/komodo/komodo:15/AP3A.241005.015/12533533:user/release-keys
 
 # RCS and IMS
@@ -149,7 +169,8 @@ persist.data.df.dev_name=rmnet_usb0
 
 # Security & Boot
 BOARD_AVB_ENABLE := false
-# SELinux Enforcing is handled via BoardConfig.mk and Kernel Command Line
+BOARD_BUILD_DISABLED_VBMETAIMAGE := true
+CHASSIS_SELINUX_ENFORCING := true
 
 # Sensors
 persist.vendor.sensors.enable.mag_filter=true
